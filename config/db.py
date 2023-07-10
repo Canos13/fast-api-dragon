@@ -1,6 +1,19 @@
 from sqlalchemy import create_engine, MetaData
+from dotenv import load_dotenv
+import os
 
-#engine = create_engine("mysql+pymysql://root:@localhost:3306/news")
-engine = create_engine("mysql+pymysql://uuxbcszkci1q50hq:HSWqLkRqGOKKTrC47Gj5@by3tkwb22zo3nffnstse-mysql.services.clever-cloud.com:3306/by3tkwb22zo3nffnstse")
+load_dotenv()
+
+# Obtén el valor de una variable de entorno
+db_host = os.environ.get('MYSQL_HOST')
+db_user = os.environ.get('MYSQL_USER')
+db_port = os.environ.get('MYSQL_PORT')
+db_password = os.environ.get('MYSQL_PASSWORD')
+db_database = os.environ.get('MYSQL_DATABASE')
+
+ConnectionString = f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_database}"
+
+engine = create_engine(ConnectionString)
+
 meta = MetaData()
 conn = engine.connect()

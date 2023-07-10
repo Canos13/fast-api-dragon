@@ -28,6 +28,18 @@ def get_news():
         return JSONResponse(content=news_list)
     except Exception as e:
         return JSONResponse(content={"error": str(e)})
+    
+
+def get_new(id: int):
+    try:
+
+        data = conn.execute(news.select().where(news.c.id == id)).first()
+        inserted_dict = data._asdict()
+
+        return JSONResponse(content=inserted_dict, status_code=200)
+    
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)})
 
 def create_news(newss: News):
     new_news = {
