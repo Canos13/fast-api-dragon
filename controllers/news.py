@@ -28,8 +28,6 @@ def get_news():
         return JSONResponse(content=news_list)
     except Exception as e:
         return JSONResponse(content={"error": str(e)})
-    finally:
-        conn.close()
     
 
 def get_new(id: int):
@@ -42,8 +40,6 @@ def get_new(id: int):
     
     except Exception as e:
         return JSONResponse(content={"error": str(e)})
-    finally:
-        conn.close()
 
 def create_news(newss: News):
     new_news = {
@@ -69,5 +65,3 @@ def create_news(newss: News):
     except Exception as e:
         conn.rollback()
         return JSONResponse(content={"error": str(e)})
-    finally:
-        conn.close()
